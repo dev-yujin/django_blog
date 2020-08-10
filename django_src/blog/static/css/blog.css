@@ -1,0 +1,57 @@
+
+
+
+.plus, .plus:hover, .plus:visited {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 26pt;
+    margin-right: 20px;
+    float: right; /*오른쪽 으로 옮기기*/
+}
+
+.save{
+    float: right;
+}
+
+.comment {
+    margin: 20px 0px 20px 20px;
+}
+
+.page-header {
+    background-color: #7dd4d2;
+    font-size: 36pt;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+    margin-top: 0;
+
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+h1,h2,h3,h4 {
+    font-family: 'Lobster', cursive;
+}
+
+.content{
+    margin-left : 40px;
+}
+
+.post{
+    margin-bottom : 50px;
+}
+
+.pub-date{
+    color: #828282;
+    font-size: 12px;
+}
+
+
+.post-form textarea, .post-form input {
+    width : 100%;
+
+}

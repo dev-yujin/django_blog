@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<script>
+    function post_remove(){
+        //{% url 'post_remove' pk=post.pk %}
+        var result = confirm('Post를 삭세하시겠습니까?')
+        if(result) { //yes를 누르면 true를 반환
+            var remove_url = "{% url 'post_remove' pk=post.pk %}"
+            document.location.href = remove_url // a 태그에 href를 주는 것과 같은 역할
+        }
+    }
+</script>
+      <div class="post">
+          {% if post.published_date %}
+            <div class="date">
+                {{post.published_date}}
+            </div>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+    <!--          글 수정 링크 추가하기-->
+              <a class = "btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+                  <span class = "edit-btn glyphicon glyphicon-pencil"></span>
+              </a>
+    <!--          여기까지 -->
+    <!--          글 삭제 링크 추가하기-->
+              <a class = "btn btn-default" href="#" onclick=post_remove()> <!-- js적용 -->
+                  <span class="glyphicon glyphicon-remove"></span>
+              </a>
+    <!--          여기까지-->
+          {% endif %}
+          <h1> {{post.title}}</h1>
+          <p> {{post.text|linebreaksbr }}</p>
+      </div>
+
+<!--    comments 출력부분-->
+    <hr>Comments
+<!--    comment 등록 버튼-->
+    <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add Comment</a>
+    <hr>
+
+    {% for comment in post.comments.all %}
+    <div class="comment">
+        <div class="date">
+            {{ comment.created_date }}
+<!--            승인이 안된 상태이면 수정 삭제 버튼이 보임 -->
+            {% if not comment.approved_comment %}
+                <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
+                    <span class="glyphicon glyphicon-remove"></span></a>
+                <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">
+                 <span class="glyphicon glyphicon-ok"></span></a>
+            {% endif %}
+        </div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }} <hr></p>
+
+    </div>
+    {% empty %}
+        <p>No comments here yet :( </p>
+
+    {% endfor %}
+
+{% endblock %}
